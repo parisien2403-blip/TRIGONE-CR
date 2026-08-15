@@ -1,0 +1,13 @@
+TRIGONE — Compte-rendu de mission
+=================================
+
+Ce dossier contient uniquement l'application PWA « Compte-rendu de mission ».
+
+GitHub Pages
+------------
+1. Poussez tout le contenu de ce dossier à la racine du dépôt (branche main ou gh-pages).
+2. Dans GitHub : Settings → Pages → Source = Deploy from branch (main, /root).
+3. Ouvrez l'URL publiée (https://votre-compte.github.io/votre-repo/) sur le téléphone.
+4. Installez l'application via « Ajouter à l'écran d'accueil ».
+
+Fichiers essentiels : index.html, manifest.json, sw.js, icon-*.png, logo cr.png, vendor/
