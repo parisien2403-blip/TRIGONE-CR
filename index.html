@@ -5518,10 +5518,9 @@ body.dark-mode .cr-mode-badge {
 </div>
 <div class="ADMIN-SECTION">
 <p style="font-size:0.8em; font-weight:700; margin:0 0 4px;">Indemnité kilométrique (IK) — véhicule personnel</p>
-<p style="font-size:0.76em; color:#64748b; margin:0 0 10px;">Barème fonction publique, tranche de base (jusqu'à 2000 km/an). Mis à jour par fichier .json, comme les taux de change.</p>
+<p style="font-size:0.76em; color:#64748b; margin:0 0 10px;">Barème fonction publique, tranche de base (jusqu'à 2000 km/an). Mis à jour automatiquement par TRIGONE (bandeau de mise à jour).</p>
 <p id="IK-RATES-INFO" style="font-size:0.78em; font-weight:600; margin:0 0 10px; line-height:1.5;"></p>
 <input type="file" id="IK-RATES-FILE" accept="application/json" onchange="IMPORTER_IK_RATES(this)" style="display:none;">
-<button type="button" class="BTN-ADMIN-CLOSE" style="background:#1a1a1a; margin-bottom:8px;" onclick="document.getElementById('IK-RATES-FILE').click()">📂 Importer un fichier de taux (.json)</button>
 <button type="button" class="BTN-ADMIN-CLOSE" onclick="EXPORTER_IK_RATES()">💾 Exporter les taux actuels (.json)</button>
 <button type="button" class="BTN-ADMIN-CLOSE" onclick="REINIT_IK_RATES()">↺ Revenir aux taux d'origine de l'application</button>
 </div>
@@ -5530,10 +5529,9 @@ body.dark-mode .cr-mode-badge {
 <details class="notice-fold">
 <summary>🌍 Missions à l'étranger</summary>
 <div class="ADMIN-SECTION">
-<p style="font-size:0.76em; color:#64748b; margin:0 0 10px;">Les montants officiels par pays (arrêté du 3 juillet 2006) sont en devise locale. TRIGONE les convertit en euros à l'aide de taux de change enregistrés sur l'appareil — à mettre à jour régulièrement en important un fichier .json.</p>
+<p style="font-size:0.76em; color:#64748b; margin:0 0 10px;">Les montants officiels par pays (arrêté du 3 juillet 2006) sont en devise locale. TRIGONE les convertit en euros à l'aide de taux de change enregistrés sur l'appareil, mis à jour automatiquement (bandeau de mise à jour).</p>
 <p id="TAUX-CHANGE-INFO" style="font-size:0.78em; font-weight:600; margin:0 0 10px;"></p>
 <input type="file" id="TAUX-CHANGE-FILE" accept="application/json" onchange="IMPORTER_TAUX_CHANGE(this)" style="display:none;">
-<button type="button" class="BTN-ADMIN-CLOSE" style="background:#1a1a1a; margin-bottom:8px;" onclick="document.getElementById('TAUX-CHANGE-FILE').click()">📂 Importer un fichier de taux (.json)</button>
 <button type="button" class="BTN-ADMIN-CLOSE" onclick="EXPORTER_TAUX_CHANGE()">💾 Exporter les taux actuels (.json)</button>
 <button type="button" class="BTN-ADMIN-CLOSE" onclick="REINIT_TAUX_CHANGE()">↺ Revenir aux taux d'origine de l'application</button>
 </div>
@@ -7758,7 +7756,10 @@ function OUVRIR_BIB_RECAP(idx) {
     var redlBtn = document.getElementById('BIB-BTN-REDOWNLOAD');
     if (redlBtn) redlBtn.classList.toggle('HIDDEN', !!item.preview);
     var reshareBtn = document.getElementById('BIB-BTN-RESHARE-QR');
-    if (reshareBtn) reshareBtn.classList.toggle('HIDDEN', entry.role !== 'CHEF' || !entry.snapshot);
+    if (reshareBtn) {
+        var etaitChef = entry.role === 'CHEF' || (entry.snapshot && entry.snapshot.COLLECTIVE === true);
+        reshareBtn.classList.toggle('HIDDEN', !etaitChef || !entry.snapshot);
+    }
     BIB_AFFICHER_DETAIL();
 }
 
