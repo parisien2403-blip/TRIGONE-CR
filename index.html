@@ -4249,9 +4249,15 @@ body.pax-mode .days-stack .DAY-BOX { opacity: 1; }
 body.pax-mode .BTN-SITE:disabled, body.pax-mode .BTN-DAY:disabled { background: #94a3b8 !important; cursor: not-allowed; opacity: 0.65; }
 
 .VALIDATION-MODAL, .NOTICE-MODAL {
-  position: fixed; inset: 0; background: rgba(11, 22, 40, 0.6); z-index: 1002;
+  position: fixed; inset: 0; background: rgba(11, 22, 40, 0.75); z-index: 1002;
   display: flex; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;
-  backdrop-filter: blur(4px);
+}
+@supports (backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px)) {
+  .VALIDATION-MODAL, .NOTICE-MODAL {
+    background: rgba(11, 22, 40, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
 }
 .VALIDATION-BOX, .NOTICE-BOX {
   background: white; border-radius: var(--sm2-radius); padding: 22px;
